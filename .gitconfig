@@ -1,0 +1,11 @@
+[user]
+	email = parker@parkersmith.us
+	name = Parker Smith
+[core]
+	excludesFile = /Users/parker/.gitignore
+[push]
+	autoSetupRemote = true
+[init]
+	defaultBranch = main
+[alias]
+	amend = commit --amend --no-edit
