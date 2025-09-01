@@ -74,3 +74,6 @@ compinit
 # End of Docker CLI completions
 
 . "$HOME/.local/bin/env"
+
+# zoxide config
+eval "$(zoxide init zsh)"
