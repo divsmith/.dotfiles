@@ -15,6 +15,7 @@ alias gps='git push'
 alias gpl='git pull'
 alias gd='git diff'
 alias gj='git checkout $(git branch | fzf)'
+alias gdf='git diff $(git diff --name-only | fzf)'
 
 # Docker Aliases
 alias d='docker'
@@ -76,4 +77,4 @@ compinit
 . "$HOME/.local/bin/env"
 
 # zoxide config
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
