@@ -9,3 +9,5 @@
 	defaultBranch = main
 [alias]
 	amend = commit --amend --no-edit
+[pull]
+	rebase = true
