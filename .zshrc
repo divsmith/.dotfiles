@@ -21,7 +21,7 @@ alias gdf='git diff $(git diff --name-only | fzf)'
 alias d='docker'
 alias dc='docker-compose'
 alias ds='docker exec -it $(docker ps --format "{{.Names}}" | fzf) /bin/sh'
-alias qwenbox='docker stop qwenbox 2>/dev/null || true && docker run -d --rm --name qwenbox -v $(find ~/code -maxdepth 1 -type d -not -path "*/archive" | fzf):/app --mount type=volume,source=qwen_config,target=/root/.qwen ghcr.io/divsmith/qwenbox:latest'
+alias qwenbox='docker stop qwenbox 2>/dev/null || true && docker run --pull=always -d --rm --name qwenbox -v $(find ~/code -maxdepth 1 -type d -not -path "*/archive" | fzf):/app --mount type=volume,source=qwen_config,target=/root/.qwen ghcr.io/divsmith/qwenbox:latest'
 
 alias python='python3.11'
 
@@ -78,3 +78,6 @@ compinit
 
 # zoxide config
 eval "$(zoxide init --cmd cd zsh)"
+
+function timeout() { perl -e 'alarm shift; exec @ARGV' "$@"; }
+
