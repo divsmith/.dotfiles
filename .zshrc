@@ -17,6 +17,12 @@ alias gd='git diff'
 alias gj='git checkout $(git branch | fzf)'
 alias gdf='git diff $(git diff --name-only | fzf)'
 
+# tmux aliases
+alias t='tmux'
+alias ta='tmux attach -t $(tmux ls | fzf | cut -d: -f1)'
+
+alias g='./gradlew'
+
 # Docker Aliases
 alias d='docker'
 alias dc='docker-compose'
