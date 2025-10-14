@@ -32,7 +32,6 @@ alias dk='docker stop $(docker ps --format "{{.Names}}" | fzf)'
 function qwenbox() { \
 	local selected_dir=$(find ~/code -maxdepth 1 -type d -not -path "*/archive" | fzf) && \
 	local dir_name=$(basename "$selected_dir") && \
-	docker stop qwenbox 2>/dev/null || true && \
 	docker stop "qwenbox-$dir_name" 2>/dev/null || true && \
 	docker run --pull=always \
 		-d \
