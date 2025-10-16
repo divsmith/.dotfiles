@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# claude-session - Creates isolated Claude Code session in tmux with Docker container
+# sandbox - Creates isolated Claude Code session in tmux with Docker container
 # ABOUTME: Launches Claude Code in a tmux session with automatic Docker container cleanup
 
 set -e  # Exit on any error
 
 # Function to show usage
 usage() {
-    echo "Usage: claude-session <project-directory>"
+    echo "Usage: sandbox <project-directory>"
     echo "  Creates a tmux session with Docker container running Claude Code"
     echo "  Container is automatically stopped when tmux session ends"
     echo ""
     echo "Examples:"
-    echo "  claude-session ~/code/myproject"
-    echo "  claude-session ."
+    echo "  sandbox ~/code/myproject"
+    echo "  sandbox ."
     exit 1
 }
 
