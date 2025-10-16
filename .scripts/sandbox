@@ -86,7 +86,6 @@ docker run --pull=always \
     --mount type=bind,source=$HOME/.claude.json,target=/home/qwen/.claude.json \
     --mount type=bind,source=$HOME/.private-journal,target=/home/qwen/.private-journal \
     --mount type=bind,source=$HOME/.qwenbox_env,target=/home/qwen/.qwenbox_env \
-    --mount type=bind,source=$HOME/.beads,target=/home/qwen/.beads \
     --env-file $HOME/.qwenbox_env \
     ghcr.io/divsmith/qwenbox:latest
 
@@ -107,7 +106,7 @@ tmux set-hook -g session-closed "run-shell 'docker stop $CONTAINER_NAME 2>/dev/n
 
 # Send commands to start Claude Code - these will execute automatically
 # First ensure the config directory and file exist with proper content
-# tmux send-keys -t "$SESSION_NAME" "docker exec $CONTAINER_NAME bash -c 'mkdir -p ~/.claude && echo \"[claude]\" > ~/.claude/config.toml && echo \"accept-dangerously-skip-permissions = true\" >> ~/.claude/config.toml'" Enter
+tmux send-keys -t "$SESSION_NAME" "docker exec $CONTAINER_NAME bash -c 'mkdir -p ~/.claude && echo \"[claude]\" > ~/.claude/config.toml && echo \"accept-dangerously-skip-permissions = true\" >> ~/.claude/config.toml'" Enter
 tmux send-keys -t "$SESSION_NAME" "docker exec -it $CONTAINER_NAME bash -c 'claude --dangerously-skip-permissions'" Enter
 
 # Attach to the session
