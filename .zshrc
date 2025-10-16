@@ -104,3 +104,4 @@ eval "$(zoxide init --cmd cd zsh)"
 
 function timeout() { perl -e 'alarm shift; exec @ARGV' "$@"; }
 
+export PATH="$HOME/.scripts:$PATH"
