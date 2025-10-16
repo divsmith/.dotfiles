@@ -43,8 +43,19 @@ fi
 
 # Generate names - use pwd to get the actual directory name
 DIR_NAME=$(basename "$(realpath "$PROJECT_DIR")")
-SESSION_NAME="claude-$DIR_NAME"
-CONTAINER_NAME="qwenbox-$DIR_NAME"
+
+# Handle dot-prefixed directories by removing the leading dot for naming
+# Both Docker and tmux have restrictions on starting characters
+CLEAN_DIR_NAME="${DIR_NAME#.}"  # Remove leading dot if present
+if [[ "$CLEAN_DIR_NAME" == "$DIR_NAME" ]]; then
+    # No dot was removed, use original name
+    SESSION_NAME="claude-$DIR_NAME"
+    CONTAINER_NAME="qwenbox-$DIR_NAME"
+else
+    # Dot was removed, use cleaned name
+    SESSION_NAME="claude-$CLEAN_DIR_NAME"
+    CONTAINER_NAME="qwenbox-$CLEAN_DIR_NAME"
+fi
 
 # Check if tmux session already exists
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
