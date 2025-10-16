@@ -105,3 +105,5 @@ eval "$(zoxide init --cmd cd zsh)"
 function timeout() { perl -e 'alarm shift; exec @ARGV' "$@"; }
 
 export PATH="$HOME/.scripts:$PATH"
+export BD_ACTOR="parker"
+export PATH="$PATH:/Users/parker/go/bin"
