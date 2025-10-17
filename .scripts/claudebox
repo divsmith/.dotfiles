@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# sandbox - Creates isolated Claude Code session in tmux with Docker container
+# claudebox - Creates isolated Claude Code session in tmux with Docker container
 # ABOUTME: Launches Claude Code in a tmux session with automatic Docker container cleanup
 
 set -e  # Exit on any error
 
 # Function to show usage
 usage() {
-    echo "Usage: sandbox <project-directory>"
+    echo "Usage: claudebox <project-directory>"
     echo "  Creates a tmux session with Docker container running Claude Code"
     echo "  Container is automatically stopped when tmux session ends"
     echo ""
     echo "Examples:"
-    echo "  sandbox ~/code/myproject"
-    echo "  sandbox ."
+    echo "  claudebox ~/code/myproject"
+    echo "  claudebox ."
     exit 1
 }
 
@@ -50,11 +50,11 @@ CLEAN_DIR_NAME="${DIR_NAME#.}"  # Remove leading dot if present
 if [[ "$CLEAN_DIR_NAME" == "$DIR_NAME" ]]; then
     # No dot was removed, use original name
     SESSION_NAME="claude-$DIR_NAME"
-    CONTAINER_NAME="qwenbox-$DIR_NAME"
+    CONTAINER_NAME="claudebox-$DIR_NAME"
 else
     # Dot was removed, use cleaned name
     SESSION_NAME="claude-$CLEAN_DIR_NAME"
-    CONTAINER_NAME="qwenbox-$CLEAN_DIR_NAME"
+    CONTAINER_NAME="claudebox-$CLEAN_DIR_NAME"
 fi
 
 # Check if tmux session already exists
@@ -81,12 +81,11 @@ docker run --pull=always \
     --rm \
     --name "$CONTAINER_NAME" \
     -v "$PROJECT_DIR":/app \
-    --mount type=volume,source=qwen_config,target=/home/qwen/.qwen \
     --mount type=bind,source=$HOME/.claude,target=/home/qwen/.claude \
     --mount type=bind,source=$HOME/.claude.json,target=/home/qwen/.claude.json \
     --mount type=bind,source=$HOME/.private-journal,target=/home/qwen/.private-journal \
-    --mount type=bind,source=$HOME/.qwenbox_env,target=/home/qwen/.qwenbox_env \
-    --env-file $HOME/.qwenbox_env \
+    --mount type=bind,source=$HOME/.claudebox_env,target=/home/qwen/.claudebox_env \
+    --env-file $HOME/.claudebox_env \
     ghcr.io/divsmith/qwenbox:latest
 
 # Wait for container to be ready
