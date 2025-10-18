@@ -7,22 +7,24 @@ set -e  # Exit on any error
 
 # Function to show usage
 usage() {
-    echo "Usage: claudebox <project-directory>"
+    echo "Usage: claudebox [project-directory]"
     echo "  Creates a tmux session with Docker container running Claude Code"
     echo "  Container is automatically stopped when tmux session ends"
+    echo "  If no directory specified, uses current directory"
     echo ""
     echo "Examples:"
     echo "  claudebox ~/code/myproject"
     echo "  claudebox ."
+    echo "  claudebox"
     exit 1
 }
 
 # Parse arguments
 if [ $# -eq 0 ]; then
-    usage
+    PROJECT_DIR="$(pwd)"
+else
+    PROJECT_DIR="$1"
 fi
-
-PROJECT_DIR="$1"
 
 # Convert to absolute path and resolve any . or .. components
 if [[ "$PROJECT_DIR" != /* ]]; then
@@ -93,6 +95,17 @@ echo "Waiting for container to be ready..."
 while ! docker exec "$CONTAINER_NAME" echo "ready" 2>/dev/null; do
     sleep 1
 done
+
+# Check for Claude Code CLI updates
+echo "Checking for Claude Code CLI updates..."
+UPDATE_OUTPUT=$(docker exec "$CONTAINER_NAME" npm outdated -g @anthropic-ai/claude-code 2>/dev/null || echo "")
+if [ -n "$UPDATE_OUTPUT" ]; then
+    echo "Updating Claude Code CLI..."
+    docker exec "$CONTAINER_NAME" sudo npm update -g @anthropic-ai/claude-code
+    echo "Claude Code CLI updated successfully"
+else
+    echo "Claude Code CLI is up to date"
+fi
 
 # Create new tmux session
 echo "Creating tmux session..."
