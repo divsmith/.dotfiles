@@ -63,6 +63,7 @@ When asked to do something, just do it - including obvious follow-up actions nee
 - YOU MUST MATCH the style and formatting of surrounding code, even if it differs from standard style guides. Consistency within a file trumps external standards.
 - YOU MUST NOT manually change whitespace that does not affect execution or output. Otherwise, use a formatting tool.
 - Fix broken things immediately when you find them. Don't ask permission to fix bugs.
+- Keep writing professional. Minimize emoji use.
 
 
 
